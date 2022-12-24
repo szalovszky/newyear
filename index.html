@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year Countdown</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="moment.min.js"></script>
+</head>
+<body class="no-select">
+    <noscript>
+        JavaScript is required!
+    </noscript>
+
+    <div id="main-content">
+        <h1 id="countdown"></h1>
+        <p id="relative"></p>
+    </div>
+
+    <script>
+            const countdown = document.querySelector("#countdown");
+            const relative = document.querySelector("#relative");
+
+            var interval = 50;
+
+            setInterval(function(){
+                if (moment().diff(moment().year() + '-01-01', 'days') < 2) {
+                    relative.style.display = "none";
+                    countdown.innerText = "Happy New Years! 🥳🎉";
+                } else {
+                    const yearEnd = moment().endOf('year').add(1, 'second');
+
+                    let nowUnix = Date.now();
+                    let yearEndUnix = yearEnd.unix() * 1000;
+                    nowUnix = Math.max(0, Math.min(nowUnix, yearEndUnix));
+                    let diff = yearEndUnix - nowUnix;
+                    let duration = moment.duration(diff, 'milliseconds');
+
+                    duration = moment.duration(duration - interval, 'milliseconds');
+
+                    countdown.innerHTML = `${duration.days() != 0 ? duration.days() + ' days ' : ''}
+                        ${duration.hours().toString().padStart(2, '0')}:${duration.minutes().toString().padStart(2, '0')}:${duration.seconds().toString().padStart(2, '0')}`;
+
+                    relative.style.display = "block";
+                    if (duration.days() != 0) {
+                        relative.innerText = `${yearEnd.fromNow()}`;
+                    } else {
+                        relative.innerText = `.${Math.max(0, Math.min(duration.milliseconds(), 1000)).toString().padStart(3, '0')}`;
+                    }
+                }
+            }, interval);
+    </script>
+</body>
+</html>

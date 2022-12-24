@@ -1,0 +1,43 @@
+* {
+    font-family: sans-serif;
+}
+
+html,
+body {
+    background: #333;
+    color: white;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#main-content {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+#countdown,
+#relative {
+    margin: 0;
+    white-space: nowrap;
+}
+
+#countdown {
+    font-size: 8vw;
+}
+
+#relative {
+    font-size: 3vw;
+    text-align: right;
+    color: #aaa;
+}
+
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
