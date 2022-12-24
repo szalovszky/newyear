@@ -24,12 +24,14 @@
             const countdown = document.querySelector("#countdown");
             const relative = document.querySelector("#relative");
 
-            var interval = 50;
+            var interval = 100;
 
             setInterval(function(){
+                let countdownString = '';
+
                 if (moment().diff(moment().year() + '-01-01', 'days') < 2) {
                     relative.style.display = "none";
-                    countdown.innerText = "Happy New Years! 🥳🎉";
+                    countdownString = "Happy New Years! 🥳🎉";
                 } else {
                     const yearEnd = moment().endOf('year').add(1, 'second');
 
@@ -41,7 +43,7 @@
 
                     duration = moment.duration(duration - interval, 'milliseconds');
 
-                    countdown.innerHTML = `${duration.days() != 0 ? duration.days() + ' days ' : ''}
+                    countdownString = `${duration.days() != 0 ? duration.days() + ' days ' : ''}
                         ${duration.hours().toString().padStart(2, '0')}:${duration.minutes().toString().padStart(2, '0')}:${duration.seconds().toString().padStart(2, '0')}`;
 
                     relative.style.display = "block";
@@ -51,6 +53,9 @@
                         relative.innerText = `.${Math.max(0, Math.min(duration.milliseconds(), 1000)).toString().padStart(3, '0')}`;
                     }
                 }
+
+                countdown.innerHTML = countdownString;
+                document.querySelector("title").innerHTML = countdownString;
             }, interval);
     </script>
 </body>
