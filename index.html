@@ -30,7 +30,7 @@
             const countdown = document.querySelector("#countdown");
             const relative = document.querySelector("#relative");
 
-            var interval = 100;
+            let interval = 100;
 
             setInterval(function(){
                 let countdownString = '';
@@ -48,12 +48,13 @@
                     let duration = moment.duration(diff, 'milliseconds');
 
                     duration = moment.duration(duration - interval, 'milliseconds');
+                    const days = Math.floor(duration.asDays());
 
-                    countdownString = `${duration.days() != 0 ? duration.days() + ' days ' : ''}
+                    countdownString = `${days != 0 ? days + ' days ' : ''}
                         ${duration.hours().toString().padStart(2, '0')}:${duration.minutes().toString().padStart(2, '0')}:${duration.seconds().toString().padStart(2, '0')}`;
 
                     relative.style.display = "block";
-                    if (duration.days() != 0) {
+                    if (days != 0) {
                         relative.innerText = `${yearEnd.fromNow()}`;
                     } else {
                         relative.innerText = `.${Math.max(0, Math.min(duration.milliseconds(), 1000)).toString().padStart(3, '0')}`;
