@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,13 +10,16 @@
     <meta property="og:title" content="New Year Countdown">
     <meta property="og:site_name" content="New Year Countdown">
     <meta property="og:url" content="https://szalovszky.com/newyear">
-    <meta property="og:description" content="🎉 A New Year countdown site, powered by vanilla JavaScript and the moment.js library">
-    <meta name="description" content="🎉 A New Year countdown site, powered by vanilla JavaScript and the moment.js library">
+    <meta property="og:description"
+        content="🎉 A New Year countdown site, powered by vanilla JavaScript and the moment.js library">
+    <meta name="description"
+        content="🎉 A New Year countdown site, powered by vanilla JavaScript and the moment.js library">
 
     <link rel="stylesheet" href="style.css">
 
     <script src="moment.min.js"></script>
 </head>
+
 <body class="no-select">
     <noscript>
         JavaScript is required!
@@ -27,43 +31,44 @@
     </div>
 
     <script>
-            const countdown = document.querySelector("#countdown");
-            const relative = document.querySelector("#relative");
+        const countdown = document.querySelector("#countdown");
+        const relative = document.querySelector("#relative");
 
-            let interval = 100;
+        let interval = 100;
 
-            setInterval(function(){
-                let countdownString = '';
+        setInterval(function () {
+            let countdownString = '';
 
-                if (moment().diff(moment().year() + '-01-01', 'days') < 2) {
-                    relative.style.display = "none";
-                    countdownString = "Happy New Years! 🥳🎉";
-                } else {
-                    const yearEnd = moment().endOf('year').add(1, 'second');
+            if (moment().diff(moment().year() + '-01-01', 'days') < 2) {
+                relative.style.display = "none";
+                countdownString = "Happy New Years! 🥳🎉";
+            } else {
+                const yearEnd = moment().endOf('year').add(1, 'second');
 
-                    let nowUnix = Date.now();
-                    let yearEndUnix = yearEnd.unix() * 1000;
-                    nowUnix = Math.max(0, Math.min(nowUnix, yearEndUnix));
-                    let diff = yearEndUnix - nowUnix;
-                    let duration = moment.duration(diff, 'milliseconds');
+                let nowUnix = Date.now();
+                let yearEndUnix = yearEnd.unix() * 1000;
+                nowUnix = Math.max(0, Math.min(nowUnix, yearEndUnix));
+                let diff = yearEndUnix - nowUnix;
+                let duration = moment.duration(diff, 'milliseconds');
 
-                    duration = moment.duration(duration - interval, 'milliseconds');
-                    const days = Math.floor(duration.asDays());
+                duration = moment.duration(duration - interval, 'milliseconds');
+                const days = Math.floor(duration.asDays());
 
-                    countdownString = `${days != 0 ? days + ' days ' : ''}
+                countdownString = `${days != 0 ? days + ' days ' : ''}
                         ${duration.hours().toString().padStart(2, '0')}:${duration.minutes().toString().padStart(2, '0')}:${duration.seconds().toString().padStart(2, '0')}`;
 
-                    relative.style.display = "block";
-                    if (days != 0) {
-                        relative.innerText = `${yearEnd.fromNow()}`;
-                    } else {
-                        relative.innerText = `.${Math.max(0, Math.min(duration.milliseconds(), 1000)).toString().padStart(3, '0')}`;
-                    }
+                relative.style.display = "block";
+                if (days != 0) {
+                    relative.innerText = `${yearEnd.fromNow()}`;
+                } else {
+                    relative.innerText = `.${Math.max(0, Math.min(duration.milliseconds(), 1000)).toString().padStart(3, '0')}`;
                 }
+            }
 
-                countdown.innerHTML = countdownString;
-                document.querySelector("title").innerHTML = countdownString;
-            }, interval);
+            countdown.innerHTML = countdownString;
+            document.querySelector("title").innerHTML = countdownString;
+        }, interval);
     </script>
 </body>
+
 </html>
